@@ -16,3 +16,4 @@ EscapeGame/Content/StarterContent/
 *.VC.opendb
 *.VC.db-shm
 *_BuiltData.uasset
+ipch/
