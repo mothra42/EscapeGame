@@ -12,3 +12,6 @@ EscapeGame/Content/StarterContent/
 # VS Generated File #
 #########################
 *.VC.db
+*.VC.db-wal
+*.VC.opendb
+*.VC.db-shm
