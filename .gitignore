@@ -15,3 +15,4 @@ EscapeGame/Content/StarterContent/
 *.VC.db-wal
 *.VC.opendb
 *.VC.db-shm
+*_BuiltData.uasset
