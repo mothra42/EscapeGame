@@ -107,7 +107,7 @@ const FHitResult UGrabber::GetFirstPhysicsBodyInReach()
 	return HitResult;
 }
 
-FVector UGrabber::GetReachLineEnd()
+FVector UGrabber::GetReachLineStart()
 {
 	FVector PlayerViewPointLocation;
 	FRotator PlayerViewPointRotation;
@@ -119,7 +119,7 @@ FVector UGrabber::GetReachLineEnd()
 	return PlayerViewPointLocation;
 }
 
-FVector UGrabber::GetReachLineStart()
+FVector UGrabber::GetReachLineEnd()
 {
 	FVector PlayerViewPointLocation;
 	FRotator PlayerViewPointRotation;
