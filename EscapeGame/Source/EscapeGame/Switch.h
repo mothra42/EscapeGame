@@ -33,4 +33,6 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	ATriggerVolume* WallSwitchThree = nullptr;
+
+	// Idea is to check if the trigger volume has been triggered, once all three have been triggered once the door will open
 };
