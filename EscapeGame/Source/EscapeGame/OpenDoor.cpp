@@ -37,7 +37,7 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// Poll the Trigger Volume every frame
-	if (GetTotalMassOfActorsOnPlate() > 30.f) //TODO make into a parameter
+	if (GetTotalMassOfActorsOnPlate() > 30.f)
 	{
 		OnOpen.Broadcast();
 	}

@@ -45,6 +45,7 @@ void UGrabber::SetupInputComponent()
 	{
 		InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab);
 		InputComponent->BindAction("Grab", IE_Released, this, &UGrabber::Release);
+		InputComponent->BindAction("Throw", IE_Pressed, this, &UGrabber::Throw);
 
 	}
 	else
@@ -59,6 +60,7 @@ void UGrabber::Grab()
 	auto HitResult = GetFirstPhysicsBodyInReach();
 	auto ComponentToGrab = HitResult.GetComponent();
 	auto ActorHit = HitResult.GetActor();
+	HeldActor = ActorHit; //set the actor we are holding for potential use when throwing;
 
 	/// If we hit something then attach a physics handle
 	if (ActorHit)
@@ -69,15 +71,33 @@ void UGrabber::Grab()
 			ComponentToGrab->GetOwner()->GetActorLocation(),
 			ComponentToGrab->GetOwner()->GetActorRotation()
 		);
+		bIsHolding = true; // set that we have grabbed an object
 	}
 }
 
 void UGrabber::Release()
 {
+	bIsHolding = false; // set that we have no current object in our hands
+	HeldActor = nullptr;
 	if (!PhysicsHandle) { return; }
 	PhysicsHandle->ReleaseComponent();
 }
 
+void UGrabber::Throw()
+{
+	if (bIsHolding)
+	{
+		if (HeldActor == nullptr)
+		{
+			UE_LOG(LogTemp, Error, TEXT("%s missing a held actor"), *GetOwner()->GetName())
+		}
+		if (!PhysicsHandle) { return; }
+		PhysicsHandle->ReleaseComponent();
+		HeldActor->FindComponentByClass<UPrimitiveComponent>()->AddImpulseAtLocation(GetPlayerRotation()*ImpulseMagnitude, HeldActor->GetActorLocation());
+		bIsHolding = false;
+		HeldActor = nullptr;
+	}
+}
 
 // Called every frame
 void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -132,5 +152,13 @@ FVector UGrabber::GetReachLineEnd()
 	);
 
 	return PlayerViewPointLocation + (PlayerViewPointRotation.Vector() * Reach);
+}
+
+FVector UGrabber::GetPlayerRotation()
+{
+	FVector CamLoc;
+	FRotator CamRot;
+	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(OUT CamLoc, OUT CamRot);
+	return CamRot.Vector();
 }
 

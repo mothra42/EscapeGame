@@ -30,15 +30,25 @@ private:
 	// How far ahead of the player can we reach in cm
 	float Reach = 100.f;
 
+	bool bIsHolding = false;
+
+	AActor* HeldActor = nullptr;
+
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
 
 	UInputComponent* InputComponent = nullptr;
 
+	UPROPERTY(EditAnywhere)
+	float ImpulseMagnitude = 5000.f;
+
 	// Ray-cast and grab what's in reach
 	void Grab();
 
-	// release object when grab key is released
+	// Release object when grab key is released
 	void Release();
+
+	// Throw held object
+	void Throw();
 
 	// Find attached physics handle
 	void FindPhysicsHandleComponent();
@@ -55,4 +65,7 @@ private:
 
 	// Returns current end of reach line
 	FVector GetReachLineEnd();
+
+	// Returns Player Rotation
+	FVector GetPlayerRotation();
 };
