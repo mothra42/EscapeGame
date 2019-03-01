@@ -15,13 +15,6 @@ USwitch::USwitch()
 }
 
 
-// Called when the game starts
-void USwitch::BeginPlay()
-{
-	Super::BeginPlay();
-}
-
-
 // Called every frame
 void USwitch::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
