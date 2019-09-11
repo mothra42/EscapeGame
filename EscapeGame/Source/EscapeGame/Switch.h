@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "Runtime/Engine/Classes/Engine/TriggerVolume.h"
 #include "Switch.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FSwitchDoorEvent);
+
+class ATriggerBox;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class ESCAPEGAME_API USwitch : public UActorComponent
@@ -27,11 +28,7 @@ public:
 
 private:
 	UPROPERTY(EditAnywhere)
-	TArray<ATriggerVolume*> SwitchArray;
-	// Idea is to check if the trigger volume has been triggered, once all three have been triggered once the door will open
-	
-	UPROPERTY(EditAnywhere)
-	AActor* TriggerActor = nullptr; //actor object used to throw at switches
+	TArray<ATriggerBox*> SwitchArray;
 
 	bool bIsAllSwitchTriggered();
 };

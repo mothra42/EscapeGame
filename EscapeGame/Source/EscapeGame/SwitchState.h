@@ -4,35 +4,30 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "ActivateSwitch.generated.h"
-
+#include "SwitchState.generated.h"
 
 class ATriggerBox;
-class ASpotLight;
-class AActor;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class ESCAPEGAME_API UActivateSwitch : public UActorComponent
+class ESCAPEGAME_API USwitchState : public UActorComponent
 {
 	GENERATED_BODY()
 
 public:	
 	// Sets default values for this component's properties
-	UActivateSwitch();
+	USwitchState();
 
 public:	
+	bool bIsTriggered = false;
+
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
 	UPROPERTY(EditAnywhere)
-	ATriggerBox* Switch = nullptr;
-	
-	UPROPERTY(EditAnywhere)
-	TArray<ASpotLight*> LightArray;
-
-	UPROPERTY(EditAnywhere)
 	AActor* ActorThatTriggers = nullptr;
 
-	void SetLightWhenTriggered();
+	void IsVolumeTriggered(ATriggerBox* TriggerVolume);
+
+	
 };
